@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_sizes.dart';
 
 /// Custom [DecoratedBox] widget with shadow to be used at the bottom of the

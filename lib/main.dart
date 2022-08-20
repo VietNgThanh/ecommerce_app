@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'src/app.dart';
@@ -16,7 +17,7 @@ void main() async {
     GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
     // * Entry point of the app
-    runApp(const MyApp());
+    runApp(const ProviderScope(child: MyApp()));
 
     // * This code will present some error UI if any uncaught exception happens
     FlutterError.onError = (FlutterErrorDetails details) {

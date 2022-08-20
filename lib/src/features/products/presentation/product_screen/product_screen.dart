@@ -1,8 +1,10 @@
+import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../localization/string_hardcoded.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
-import '../../../../constants/test_products.dart';
 import '../../../../utils/currency_formatter.dart';
 import '../../../cart/presentation/add_to_cart/add_to_cart_widget.dart';
 import '../../../reviews/presentation/product_reviews/product_reviews_list.dart';
@@ -19,24 +21,29 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Read from data source
-    final product =
-        kTestProducts.firstWhere((product) => product.id == productId);
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: product == null
-          ? EmptyPlaceholderWidget(
-              message: 'Product not found'.hardcoded,
-            )
-          : CustomScrollView(
-              slivers: [
-                ResponsiveSliverCenter(
-                  padding: const EdgeInsets.all(Sizes.p16),
-                  child: ProductDetails(product: product),
-                ),
-                ProductReviewsList(productId: productId),
-              ],
-            ),
+      body: Consumer(
+        builder: (context, ref, _) {
+          final productValue = ref.watch(productStreamProvider(productId));
+          return AsyncValueWidget<Product?>(
+            value: productValue,
+            data: (product) => product == null
+                ? EmptyPlaceholderWidget(
+                    message: 'Product not found'.hardcoded,
+                  )
+                : CustomScrollView(
+                    slivers: [
+                      ResponsiveSliverCenter(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: ProductDetails(product: product),
+                      ),
+                      ProductReviewsList(productId: productId),
+                    ],
+                  ),
+          );
+        },
+      ),
     );
   }
 }

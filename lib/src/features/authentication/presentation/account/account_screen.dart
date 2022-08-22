@@ -1,34 +1,49 @@
+import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen_controller.dart';
+import 'package:ecommerce_app/src/utils/async_value_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
-import '../../domain/app_user.dart';
+import '../../data/fake_auth_repository.dart';
 
 /// Simple account screen showing some user info and a logout button.
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends ConsumerWidget {
   const AccountScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AsyncValue>(
+      accountScreenControllerProvider,
+      (_, state) => state.showAlerDialogOnError(context),
+    );
+    final state = ref.watch(accountScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account'.hardcoded),
+        centerTitle: true,
+        title: state.isLoading
+            ? const CircularProgressIndicator()
+            : Text('Account'.hardcoded),
         actions: [
           ActionTextButton(
             text: 'Logout'.hardcoded,
-            onPressed: () async {
-              final logout = await showAlertDialog(
-                context: context,
-                title: 'Are you sure?'.hardcoded,
-                cancelActionText: 'Cancel'.hardcoded,
-                defaultActionText: 'Logout'.hardcoded,
-              );
-              if (logout == true) {
-                // TODO: Sign out the user.
-                Navigator.of(context).pop();
-              }
-            },
+            onPressed: state.isLoading
+                ? null
+                : () async {
+                    final logout = await showAlertDialog(
+                      context: context,
+                      title: 'Are you sure?'.hardcoded,
+                      cancelActionText: 'Cancel'.hardcoded,
+                      defaultActionText: 'Logout'.hardcoded,
+                    );
+                    if (logout == true) {
+                      ref
+                          .read(accountScreenControllerProvider.notifier)
+                          .signOut();
+                    }
+                  },
           ),
         ],
       ),
@@ -41,14 +56,13 @@ class AccountScreen extends StatelessWidget {
 }
 
 /// Simple user data table showing the uid and email
-class UserDataTable extends StatelessWidget {
+class UserDataTable extends ConsumerWidget {
   const UserDataTable({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme.subtitle2!;
-    // TODO: get user from auth repository
-    const user = AppUser(uid: '123', email: 'test@test.com');
+    final user = ref.watch(authStateChangesStreamProvider).value;
     return DataTable(
       columns: [
         DataColumn(
@@ -67,12 +81,12 @@ class UserDataTable extends StatelessWidget {
       rows: [
         _makeDataRow(
           'uid'.hardcoded,
-          user.uid,
+          user?.uid ?? '',
           style,
         ),
         _makeDataRow(
           'email'.hardcoded,
-          user.email ?? '',
+          user?.email ?? '',
           style,
         ),
       ],

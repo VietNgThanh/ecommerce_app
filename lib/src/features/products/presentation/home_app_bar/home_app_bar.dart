@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../localization/string_hardcoded.dart';
 import 'package:go_router/go_router.dart';
 
@@ -5,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/breakpoints.dart';
 import '../../../../routing/app_router.dart';
-import '../../../authentication/domain/app_user.dart';
 import 'more_menu_button.dart';
 import 'shopping_cart_icon.dart';
 
@@ -15,13 +17,15 @@ import 'shopping_cart_icon.dart';
 /// - [ShoppingCartIcon]
 /// - Orders button
 /// - Account or Sign-in button
-class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
+class HomeAppBar extends ConsumerWidget with PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: get user from auth repository
-    const user = AppUser(uid: '123', email: 'test@test.com');
+  Widget build(BuildContext context, WidgetRef ref) {
+    // * Non-null user only when we are signed in
+    // * Null user on loading | error | not signed in
+    final user = ref.watch(authStateChangesStreamProvider).value;
+
     // * This widget is responsive.
     // * On large screen sizes, it shows all the actions in the app bar.
     // * On small screen sizes, it shows only the shopping cart icon and a
@@ -33,8 +37,8 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
     if (screenWidth < Breakpoint.tablet) {
       return AppBar(
         title: Text('My Shop'.hardcoded),
-        actions: const [
-          ShoppingCartIcon(),
+        actions: [
+          const ShoppingCartIcon(),
           MoreMenuButton(user: user),
         ],
       );

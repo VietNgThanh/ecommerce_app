@@ -17,6 +17,9 @@ class FakeAuthRepository {
   AppUser? get currentUser => _authState.value;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
+    // return Future.delayed(
+    //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
+    await Future.delayed(const Duration(seconds: 1));
     if (currentUser == null) {
       _createNewUser(email);
     }
@@ -24,13 +27,19 @@ class FakeAuthRepository {
 
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
+    // return Future.delayed(
+    //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
+    await Future.delayed(const Duration(seconds: 1));
     if (currentUser == null) {
       _createNewUser(email);
     }
   }
 
-  Future<void> signOut() async {
-    _authState.value = null;
+  Future<void> signOut() {
+    // return Future.delayed(
+    //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
+    return Future.delayed(
+        const Duration(seconds: 1), () => _authState.value = null);
   }
 
   void dispose() => _authState.close();
@@ -49,7 +58,7 @@ final authRepositoryProvider = Provider<FakeAuthRepository>((ref) {
   return auth;
 });
 
-final autheStateChangesStreamProvider =
+final authStateChangesStreamProvider =
     StreamProvider.autoDispose<AppUser?>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();

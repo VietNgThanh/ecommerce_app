@@ -1,8 +1,8 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
 import '../../../../utils/currency_formatter.dart';
 import '../../domain/product.dart';
 import '../product_screen/product_average_rating.dart';

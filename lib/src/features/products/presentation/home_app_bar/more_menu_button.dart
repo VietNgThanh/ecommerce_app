@@ -1,10 +1,9 @@
-import '../../../../localization/string_hardcoded.dart';
-
-import '../../../../routing/app_router.dart';
-import '../../../authentication/domain/app_user.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter/material.dart';
+import '../../../../localization/string_hardcoded.dart';
+import '../../../../routing/app_router.dart';
+import '../../../authentication/domain/app_user.dart';
 
 enum PopupMenuOption {
   signIn,

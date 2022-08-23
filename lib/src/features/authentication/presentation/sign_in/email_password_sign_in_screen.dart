@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
-import 'package:ecommerce_app/src/utils/async_value_ui.dart';
+import 'email_password_sign_in_controller.dart';
+import '../../../../utils/async_value_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../localization/string_hardcoded.dart';

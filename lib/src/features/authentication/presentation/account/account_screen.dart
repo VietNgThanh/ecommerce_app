@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/src/features/authentication/presentation/account/account_screen_controller.dart';
-import 'package:ecommerce_app/src/utils/async_value_ui.dart';
+import 'account_screen_controller.dart';
+import '../../../../utils/async_value_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../localization/string_hardcoded.dart';

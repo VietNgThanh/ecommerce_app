@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_sizes.dart';
 
 /// Primary button based on [ElevatedButton].

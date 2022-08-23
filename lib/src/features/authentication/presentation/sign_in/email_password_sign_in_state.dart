@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../localization/string_hardcoded.dart';
@@ -24,13 +23,13 @@ class EmailPasswordSignInState with EmailAndPasswordValidators {
   });
 
   final EmailPasswordSignInFormType formType;
-  final AsyncValue value;
+  final AsyncValue<void> value;
 
   get isLoading => value.isLoading;
 
   EmailPasswordSignInState copyWith({
     EmailPasswordSignInFormType? formType,
-    AsyncValue? value,
+    AsyncValue<void>? value,
   }) {
     return EmailPasswordSignInState(
       formType: formType ?? this.formType,

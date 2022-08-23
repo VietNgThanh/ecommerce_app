@@ -1,9 +1,9 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
 import '../../../../constants/breakpoints.dart';
+import '../../../../localization/string_hardcoded.dart';
 import '../../domain/review.dart';
 import '../product_reviews/product_rating_bar.dart';
 

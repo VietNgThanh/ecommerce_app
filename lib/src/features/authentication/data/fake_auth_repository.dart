@@ -1,6 +1,8 @@
-import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
-import 'package:ecommerce_app/src/utils/in_memory_store.dart';
+import '../../../utils/delay.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../domain/app_user.dart';
+import '../../../utils/in_memory_store.dart';
 
 // abstract class AuthRepository {
 //   Stream<AppUser?> authStateChanges();
@@ -12,6 +14,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FakeAuthRepository {
   final _authState = InMemoryStore<AppUser?>(null);
+  final bool addDelay;
+
+  FakeAuthRepository({
+    this.addDelay = true,
+  });
 
   Stream<AppUser?> authStateChanges() => _authState.stream;
   AppUser? get currentUser => _authState.value;
@@ -19,27 +26,23 @@ class FakeAuthRepository {
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     // return Future.delayed(
     //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
-    await Future.delayed(const Duration(seconds: 1));
-    if (currentUser == null) {
-      _createNewUser(email);
-    }
+    await delay(addDelay);
+    _createNewUser(email);
   }
 
   Future<void> createUserWithEmailAndPassword(
       String email, String password) async {
     // return Future.delayed(
     //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
-    await Future.delayed(const Duration(seconds: 1));
-    if (currentUser == null) {
-      _createNewUser(email);
-    }
+    await delay(addDelay);
+    _createNewUser(email);
   }
 
-  Future<void> signOut() {
+  Future<void> signOut() async {
     // return Future.delayed(
     //     const Duration(seconds: 1), () => throw Exception('Connection Failed'));
-    return Future.delayed(
-        const Duration(seconds: 1), () => _authState.value = null);
+    await delay(addDelay);
+    _authState.value = null;
   }
 
   void dispose() => _authState.close();

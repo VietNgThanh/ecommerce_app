@@ -1,5 +1,5 @@
-import 'item.dart';
 import '../../products/domain/product.dart';
+import 'item.dart';
 
 /// Model class representing the shopping cart contents.
 class Cart {

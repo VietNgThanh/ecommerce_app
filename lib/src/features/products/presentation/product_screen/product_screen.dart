@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
+import '../../data/fake_products_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../localization/string_hardcoded.dart';

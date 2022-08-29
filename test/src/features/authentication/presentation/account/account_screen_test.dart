@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:ecommerce_app/src/features/authentication/domain/app_user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -17,10 +18,9 @@ void main() {
 
   testWidgets('Confirm logout, success', (tester) async {
     final r = AuthRobot(tester: tester);
-    await r.pumpAccountScreen();
-    await tester.runAsync(() async {
-      await r.tapLogoutButton();
-    });
+    final authRepository = FakeAuthRepository(addDelay: false);
+    await r.pumpAccountScreen(authRepository: authRepository);
+    await r.tapLogoutButton();
     r.expectLogoutDialogFound();
     await r.tapDialogLogoutButton();
     r.expectLogoutDialogNotFound();

@@ -9,14 +9,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'features/authentication/auth_robot.dart';
+import 'goldens/golden_robot.dart';
 
 class Robot {
-  final WidgetTester tester;
-  final AuthRobot authRobot;
-
   Robot({
     required this.tester,
-  }) : authRobot = AuthRobot(tester: tester);
+  })  : authRobot = AuthRobot(tester: tester),
+        goldenRobot = GoldenRobot(tester);
+
+  final WidgetTester tester;
+  final AuthRobot authRobot;
+  final GoldenRobot goldenRobot;
 
   Future<void> pumpMyapp() async {
     const productRepository = FakeProductsRepository(addDelay: false);

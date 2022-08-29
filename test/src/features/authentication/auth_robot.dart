@@ -19,8 +19,8 @@ class AuthRobot {
     required FakeAuthRepository authRepository,
     required EmailPasswordSignInFormType formType,
     VoidCallback? onSignIn,
-  }) {
-    return tester.pumpWidget(
+  }) async {
+    await tester.pumpWidget(
       ProviderScope(
         overrides: [
           authRepositoryProvider.overrideWithValue(authRepository),

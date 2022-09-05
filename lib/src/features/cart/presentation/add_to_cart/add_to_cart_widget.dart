@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
 import '../../../products/domain/product.dart';
 
 /// A widget that shows an [ItemQuantitySelector] along with a [PrimaryButton]

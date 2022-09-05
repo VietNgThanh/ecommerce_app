@@ -1,11 +1,10 @@
-import '../../../../localization/string_hardcoded.dart';
-
-import '../../../../common_widgets/common_widgets.dart';
-import '../../../../routing/app_router.dart';
-import '../../domain/item.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter/material.dart';
+import '../../../../common_widgets/common_widgets.dart';
+import '../../../../localization/string_hardcoded.dart';
+import '../../../../routing/app_router.dart';
+import '../../domain/item.dart';
 import 'shopping_cart_item.dart';
 import 'shopping_cart_items_builder.dart';
 

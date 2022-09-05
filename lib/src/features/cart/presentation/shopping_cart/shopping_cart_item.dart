@@ -1,14 +1,13 @@
 import 'dart:math';
 
-import '../../../products/data/fake_products_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
+import '../../../products/data/fake_products_repository.dart';
 import '../../../products/domain/product.dart';
 import '../../domain/item.dart';
 

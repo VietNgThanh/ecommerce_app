@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/test_products.dart';
-import '../domain/product.dart';
 import '../../../utils/delay.dart';
+import '../domain/product.dart';
 
 class FakeProductsRepository {
   const FakeProductsRepository({

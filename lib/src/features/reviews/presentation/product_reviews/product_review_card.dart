@@ -1,19 +1,18 @@
-import 'package:flutter/material.dart';
-
-import '../../../../common_widgets/common_widgets.dart';
-import '../../../../constants/app_sizes.dart';
-import '../../../../utils/date_formatter.dart';
-import '../../domain/review.dart';
+import '../../../../common_widgets/alert_dialogs.dart';
 import 'product_rating_bar.dart';
+import 'package:flutter/material.dart';
+import '../../../../constants/app_sizes.dart';
+import '../../domain/review.dart';
+import '../../../../utils/date_formatter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Simple card widget to show a product review info (score, comment, date)
-class ProductReviewCard extends StatelessWidget {
-  const ProductReviewCard(this.review, {Key? key}) : super(key: key);
+class ProductReviewCard extends ConsumerWidget {
+  const ProductReviewCard(this.review, {super.key});
   final Review review;
   @override
-  Widget build(BuildContext context) {
-    // TODO: Inject date formatter
-    final dateFormatted = kDateFormatter.format(review.date);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateFormatted = ref.watch(dateFormatterProvider).format(review.date);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(Sizes.p16),

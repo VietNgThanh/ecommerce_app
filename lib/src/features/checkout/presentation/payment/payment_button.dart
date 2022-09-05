@@ -1,7 +1,7 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
+import '../../../../localization/string_hardcoded.dart';
 
 /// Button used to initiate the payment flow.
 class PaymentButton extends StatelessWidget {

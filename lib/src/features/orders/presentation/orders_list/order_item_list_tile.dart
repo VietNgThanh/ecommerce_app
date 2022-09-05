@@ -1,12 +1,11 @@
-import '../../../products/data/fake_products_repository.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
 import '../../../cart/domain/item.dart';
+import '../../../products/data/fake_products_repository.dart';
 import '../../../products/domain/product.dart';
 
 /// Shows an individual order item, including price and quantity.

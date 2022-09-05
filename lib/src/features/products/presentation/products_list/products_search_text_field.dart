@@ -1,5 +1,6 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../localization/string_hardcoded.dart';
 
 /// Search field used to filter products by name
 class ProductsSearchTextField extends StatefulWidget {

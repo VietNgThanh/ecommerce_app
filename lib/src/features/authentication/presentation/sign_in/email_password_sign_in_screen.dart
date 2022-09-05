@@ -1,13 +1,12 @@
-import 'email_password_sign_in_controller.dart';
-import '../../../../utils/async_value_ui.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common_widgets/common_widgets.dart';
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
+import '../../../../utils/async_value_ui.dart';
+import 'email_password_sign_in_controller.dart';
 import 'email_password_sign_in_state.dart';
 import 'string_validators.dart';
 

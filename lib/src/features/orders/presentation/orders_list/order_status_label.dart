@@ -1,6 +1,6 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../localization/string_hardcoded.dart';
 import '../../domain/order.dart';
 
 /// Shows the status of the order

@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import '../localization/string_hardcoded.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../localization/string_hardcoded.dart';
 
 const kDialogDefaultKey = Key('dialog-default-key');
 

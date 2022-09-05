@@ -1,7 +1,8 @@
-import '../../../../localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
 import '../../../../utils/currency_formatter.dart';
 import '../../../../utils/date_formatter.dart';
 import '../../../cart/domain/item.dart';
@@ -11,7 +12,7 @@ import 'order_status_label.dart';
 
 /// Shows all the details for a given order
 class OrderCard extends StatelessWidget {
-  const OrderCard({Key? key, required this.order}) : super(key: key);
+  const OrderCard({super.key, required this.order});
   final Order order;
 
   @override
@@ -36,16 +37,16 @@ class OrderCard extends StatelessWidget {
 /// Order header showing the following:
 /// - Total order amount
 /// - Order date
-class OrderHeader extends StatelessWidget {
-  const OrderHeader({Key? key, required this.order}) : super(key: key);
+class OrderHeader extends ConsumerWidget {
+  const OrderHeader({super.key, required this.order});
   final Order order;
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Inject currency formatter
-    final totalFormatted = kCurrencyFormatter.format(order.total);
-    // TODO: Inject date formatter
-    final dateFormatted = kDateFormatter.format(order.orderDate);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final totalFormatted =
+        ref.watch(currencyFormatterProvider).format(order.total);
+    final dateFormatted =
+        ref.watch(dateFormatterProvider).format(order.orderDate);
     return Container(
       color: Colors.grey[200],
       padding: const EdgeInsets.all(Sizes.p16),
@@ -87,7 +88,7 @@ class OrderHeader extends StatelessWidget {
 
 /// List of items in the order
 class OrderItemsList extends StatelessWidget {
-  const OrderItemsList({Key? key, required this.order}) : super(key: key);
+  const OrderItemsList({super.key, required this.order});
   final Order order;
 
   @override

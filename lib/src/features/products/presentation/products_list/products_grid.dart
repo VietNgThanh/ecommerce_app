@@ -1,17 +1,16 @@
 import 'dart:math';
 
-import '../../../../common_widgets/common_widgets.dart';
-import '../../data/fake_products_repository.dart';
-import '../../domain/product.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../localization/string_hardcoded.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../constants/app_sizes.dart';
-import '../../../../routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../common_widgets/common_widgets.dart';
+import '../../../../constants/app_sizes.dart';
+import '../../../../localization/string_hardcoded.dart';
+import '../../../../routing/app_router.dart';
+import '../../data/fake_products_repository.dart';
+import '../../domain/product.dart';
 import 'product_card.dart';
 
 /// A widget that displays the list of products that match the search query.

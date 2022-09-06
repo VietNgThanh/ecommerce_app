@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:ecommerce_app/src/features/cart/data/local/sembast_cart_repository.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'src/app.dart';
+import 'src/features/cart/data/local/local_cart_repository.dart';
 import 'src/localization/string_hardcoded.dart';
 
 void main() async {
@@ -16,8 +18,22 @@ void main() async {
     // * Turn off the # in the URLs on the web
     GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
+    // * Local cart repository
+    final localCartRepository = await SembastCartRepository.makeDefault();
     // * Entry point of the app
-    runApp(const ProviderScope(child: MyApp()));
+    runApp(
+      ProviderScope(
+        overrides: [
+          localCartRepositoryProvider.overrideWithProvider(
+            Provider<LocalCartRepository>((ref) {
+              ref.onDispose(localCartRepository.dispose);
+              return localCartRepository;
+            }),
+          ),
+        ],
+        child: const MyApp(),
+      ),
+    );
 
     // * This code will present some error UI if any uncaught exception happens
     FlutterError.onError = (FlutterErrorDetails details) {

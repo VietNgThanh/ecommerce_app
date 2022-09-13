@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:ecommerce_app/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:ecommerce_app/src/features/cart/data/local/local_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/data/remote/remote_cart_repository.dart';
 import 'package:ecommerce_app/src/features/cart/domain/cart.dart';
 import 'package:ecommerce_app/src/features/cart/domain/item.dart';
 import 'package:ecommerce_app/src/features/cart/domain/mutable_cart.dart';
+import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -68,4 +71,52 @@ final cartServiceProvider = Provider<CartService>((ref) {
     localCartRepository: ref.watch(localCartRepositoryProvider),
     remoteCartRepository: ref.watch(remoteCartRepositoryProvider),
   );
+});
+
+final cartProvider = StreamProvider<Cart>((ref) {
+  final user = ref.watch(authStateChangesStreamProvider).value;
+  if (user == null) {
+    return ref.watch(localCartRepositoryProvider).watchCart();
+  } else {
+    return ref.watch(remoteCartRepositoryProvider).watchCart(user.uid);
+  }
+});
+
+final cartItemsCountProvider = Provider<int>((ref) {
+  return ref.watch(cartProvider).maybeMap(
+        data: (cart) => cart.value.items.length,
+        orElse: () => 0,
+      );
+});
+
+final cartTotalProvider = Provider.autoDispose<double>((ref) {
+  final cart = ref.watch(cartProvider).value ?? const Cart();
+  final productsList =
+      ref.watch(productsListStreamProvider).value ?? const <Product>[];
+
+  if (cart.items.isEmpty || productsList.isEmpty) {
+    return 0.0;
+  }
+
+  var total = 0.0;
+  cart.items.forEach((productId, quantity) {
+    final product =
+        productsList.firstWhere((product) => product.id == productId);
+    total += product.price * quantity;
+  });
+  return total;
+});
+
+final itemAvailableQuantityProvider =
+    Provider.autoDispose.family<int, Product>((ref, product) {
+  final cart = ref.watch(cartProvider).value;
+
+  if (cart == null) {
+    return product.availableQuantity;
+  }
+
+  // get the current quantity for the given product in the cart
+  final quantity = cart.items[product.id] ?? 0;
+  // subtract it from the product available quantity
+  return max(0, product.availableQuantity - quantity);
 });

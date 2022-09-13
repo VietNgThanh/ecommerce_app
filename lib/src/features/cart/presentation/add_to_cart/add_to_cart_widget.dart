@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ecommerce_app/src/features/cart/application/cart_service.dart';
 import 'package:ecommerce_app/src/features/cart/presentation/add_to_cart/add_to_cart_controller.dart';
 import 'package:ecommerce_app/src/utils/async_value_ui.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AddToCartWidget extends ConsumerWidget {
       (_, state) => state.showAlerDialogOnError(context),
     );
 
-    final availableQuantity = product.availableQuantity;
+    final availableQuantity = ref.watch(itemAvailableQuantityProvider(product));
     final state = ref.watch(addToCartControllerProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

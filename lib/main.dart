@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:ecommerce_app/src/features/cart/data/local/sembast_cart_repository.dart.dart';
+import 'src/features/cart/application/cart_sync_service.dart';
+import 'src/features/cart/data/local/sembast_cart_repository.dart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,17 +21,21 @@ void main() async {
 
     // * Local cart repository
     final localCartRepository = await SembastCartRepository.makeDefault();
+    // * Create ProviderContainer with any required overrides
+    final container = ProviderContainer(overrides: [
+      localCartRepositoryProvider.overrideWithProvider(
+        Provider<LocalCartRepository>((ref) {
+          ref.onDispose(localCartRepository.dispose);
+          return localCartRepository;
+        }),
+      ),
+    ]);
+    // * Initialize CartSyncService to start the listener
+    container.read(cartSyncServiceProvider);
     // * Entry point of the app
     runApp(
-      ProviderScope(
-        overrides: [
-          localCartRepositoryProvider.overrideWithProvider(
-            Provider<LocalCartRepository>((ref) {
-              ref.onDispose(localCartRepository.dispose);
-              return localCartRepository;
-            }),
-          ),
-        ],
+      UncontrolledProviderScope(
+        container: container,
         child: const MyApp(),
       ),
     );

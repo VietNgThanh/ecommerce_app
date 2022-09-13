@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/features/cart/application/cart_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,8 +10,7 @@ class CartTotalText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Read from data source
-    const cartTotal = 104.0;
+    final cartTotal = ref.watch(cartTotalProvider);
     final totalFormatted =
         ref.watch(currencyFormatterProvider).format(cartTotal);
     return Text(

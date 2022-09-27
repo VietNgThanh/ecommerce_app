@@ -75,6 +75,6 @@ final productStreamProvider =
     final productsRepository = ref.watch(productsRepositoryProvider);
     return productsRepository.watchProduct(id);
   },
-  disposeDelay: const Duration(seconds: 5),
-  cacheTime: const Duration(seconds: 60),
+  // disposeDelay: const Duration(seconds: 5),
+  // cacheTime: const Duration(seconds: 60),
 );

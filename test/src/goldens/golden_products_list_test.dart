@@ -19,7 +19,7 @@ void main() {
       await r.goldenRobot.setSurfaceSize(currentSize);
       await r.goldenRobot.loadRobotoFont();
       await r.goldenRobot.loadMaterialIconFont();
-      await r.pumpMyapp();
+      await r.pumpMyApp();
       await r.goldenRobot.precacheImages();
       await expectLater(
           find.byType(MyApp),

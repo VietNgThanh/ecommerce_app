@@ -14,7 +14,8 @@ class CartRobot {
   Future<void> addToCart() async {
     final finder = find.text('Add to Cart');
     expect(finder, findsOneWidget);
-
+    await tester.ensureVisible(find.byType(ElevatedButton));
+    await tester.pumpAndSettle();
     await tester.tap(finder);
     await tester.pumpAndSettle();
   }

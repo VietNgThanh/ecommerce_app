@@ -156,4 +156,11 @@ class AuthRobot {
     final finder = find.byType(CircularProgressIndicator);
     expect(finder, findsOneWidget);
   }
+
+  Future<void> openEmailPasswordSignInScreen() async {
+    final finder = find.byKey(MoreMenuButton.signInKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+  }
 }
